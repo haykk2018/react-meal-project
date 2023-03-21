@@ -5,11 +5,14 @@ const getAllCategories = async () => {
     return await res.json();
 };
 
-const getMealById = async (id) => {
-    const res = await fetch(API_URL + "" + id, {mode: "cors",headers: {
-            Authorization: "1"
-        }});
+const getRecipeById = async (id) => {
+    const res = await fetch(API_URL + '/api/json/v1/1/lookup.php?i=' + id);
     return await res.json();
 };
 
-export {getAllCategories, getMealById}
+const getCategoryMeals = async (catName) => {
+    const response = await fetch(API_URL + '/api/json/v1/1/filter.php?c=' + catName);
+    return await response.json();
+};
+
+export {getAllCategories, getRecipeById, getCategoryMeals}
