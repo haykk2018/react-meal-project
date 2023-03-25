@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {CategoryList} from "./CategoryList";
 import {getAllCategories} from "../api";
 import {Search} from "./Search";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Main = () => {
 
@@ -10,6 +10,7 @@ const Main = () => {
     //it's need because if we save filtered data in catalog, next filtering it will do from already filtered data
     const [filteredCatalog, setFilteredCatalog] = useState([]);
     const {search} = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllCategories().then((data) => {
@@ -24,6 +25,7 @@ const Main = () => {
         setFilteredCatalog(
             names.filter((item) => item.strCategory.toLowerCase().includes(name.toLowerCase()))
         );
+        name && navigate('?search=' + name);
     }
 
     return <>
