@@ -9,12 +9,12 @@ const Main = () => {
     const [catalog, setCatalog] = useState([]);
     //it's need because if we save filtered data in catalog, next filtering it will do from already filtered data
     const [filteredCatalog, setFilteredCatalog] = useState([]);
-    const location = useLocation();
+    const {search} = useLocation();
 
     useEffect(() => {
         getAllCategories().then((data) => {
             setCatalog(data.categories);
-            const nameFromLink = location["search"].split('=')[1].toLowerCase();
+            const nameFromLink = search ? search.split('=')[1].toLowerCase() : '';
             // we pass here names as argument because it can't take catalog from useEffect hook
             filter(nameFromLink, data.categories);
         });
